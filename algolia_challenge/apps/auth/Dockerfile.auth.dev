@@ -1,0 +1,15 @@
+FROM node:20-alpine
+WORKDIR /app
+
+COPY config/package.json ./
+COPY config/tsconfig.json ./
+COPY config/nest-cli.json ./
+COPY config/logger.config.ts ./config/
+
+RUN npm i
+
+COPY apps/auth ./apps/auth
+COPY common ./common
+COPY core ./core
+
+CMD ["npm", "run", "start:dev", "auth"]
